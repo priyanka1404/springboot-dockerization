@@ -32,6 +32,42 @@ ENTRYPOINT ["java", "-jar", "springboot-docker-demo.jar"]
 docker run -p 8009 (host operating system):8008(application port number  ,container port,it will contain its own private network) springboot-docker(img name) // -p we need to map container port with  host operator port
 // by using this exposed port , we can access private network
 
+check by running localhost:8009/docker->it will mapped
+ctrl+c->this will stop docker container
+
+3) docker ps // to check running containers
+
+4)//how to run docker container in detached mode ( background)
+docker run -p 8009:8008 -d springboot-docker
+
+output in terminal:3375cc6feadb0738f695a71bf85dd229b91832d48e5886a2acfc30a537015928
+
+5) docker logs -f 3375 //to see docker logs,-f to tail the logs
+
+6)docker ps
+7)  docker stop 3375 //to stop docker container
+
+*****************
+
+---How to push docker img(from local machine to docker hub)
+->sign in to docker hub
+->in docker hub (docker registry)->where docker images are stored as repositorys
+->to push docker imgs to docker hub
+
+commands:
+1)docker login  //(provide username and password of docker hub)
+2) docker tag springboot-docker priyankanomula/springboot-docker:0.1.RELEASE  ->(0.1 .release IT IS A TAG NAME)/// (to push img local to docker hub),first we need to associate local image with repository of docker hub
+3)docker images(dockerid/repository name)
+output :priyankanomula/springboot-docker   0.1.RELEASE   c327abf4de44   3 hours ago   423MB
+4)now we are good to push this img to docker hub
+5)docker push priyankanomula/springboot-docker:0.1.RELEASE
+check in docker hub
+
+
+
+
+
+
 
 
 
