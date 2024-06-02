@@ -63,6 +63,53 @@ output :priyankanomula/springboot-docker   0.1.RELEASE   c327abf4de44   3 hours 
 5)docker push priyankanomula/springboot-docker:0.1.RELEASE
 check in docker hub
 
+*********************************
+How to run docker image in a docker container
+->we can pull docker image and depoly in different environments(test,staging)
+->we can pull docker img from docker hub and run docker img in docker container
+
+commands:
+1)docker pull priyankanomula/springboot-docker:0.1.RELEASE
+2)docker images
+//already existed in local machine
+//priyankanomula/springboot-docker   0.1.RELEASE   c327abf4de44   3 hours ago   423MB
+// try to pull new img from docker hub eg:mysql
+-> go to docker hub search for mysql and find the latest tag
+3)docker pull mysql:oraclelinux9  //(tag name)
+//if we don't mention any tag,it will take default as latest
+4)docker images
+// mysql  img will list in local machine
+
+---How to run mysql docker image in docker container
+1)docker run -p 3307:3306 --name localhost -e MYSQL_ROOT_PASSWORD=TCS1235@# -e MYSQL_DATABASE=employee_db -e MYSQL_USER=Reddy -e MYSQL_PASSWORD=Reddy -d mysql:latest
+
+// running the above img in detached mode
+->docker run -p 3307:3306(default container port for mysql)
+
+output:
+//Status: Downloaded newer image for mysql:latest
+  0eaff927c116f8874c72908c400c6170777cc6c1bb60c81b95c2184a00c11a2c
+
+ 2)docker logs -f localhost // localhost is container name,we can see logs of mysql db
+ -> to check whether mysql is running in docker container or not
+ ->we need to login to mysql db in docker container
+
+ ctrl+c
+
+
+  3)docker exec -it localhost bash
+  ->it will jump to bash terminal
+  4)mysql -u root -p
+  enter password:TCS1235@#
+
+  show databases
+  // we have successfully deployed mysql docker img in a docker container
+  downloaded latest mysql image and created employee_db successfully
+
+
+
+
+
 
 
 
