@@ -1,0 +1,38 @@
+FROM  eclipse-temurin:17
+# to define parent img,we need to use FROM tag
+
+LABEL meintainer = "priyankareddynomula111@gmail.com"
+#to define meta data
+
+WORKDIR /app
+# whenever we run the container ,APP directory will be created in container
+
+COPY  target/springboot-docker-0.0.1-SNAPSHOT.jar /app/springboot-docker-demo.jar
+# source(Our local) and destination(container)
+
+ENTRYPOINT ["java", "-jar", "springboot-docker-demo.jar"]
+# to start the jar file
+
+# we have to use this docker file to build docker img
+#open terminal go to  docker file location and execute docker build commands
+
+
+1)open the docker file location in terminal
+2)cd springboot-docker(application)
+3) docker build -t springboot-docker . // to build docker image,-t for tag
+4)docker images // lists all  available images in machines with all info like(tag-version),size,creation time
+5)docker build -t springboot-docker:0.1.RELEASE . // to change tag info
+6)docker images // to check the images
+
+************************************
+
+# how to run the docker img in docker container
+1)docker images
+2)docker run -p 8009:8008 springboot-docker
+docker run -p 8009 (host operating system):8008(application port number  ,container port,it will contain its own private network) springboot-docker(img name) // -p we need to map container port with  host operator port
+// by using this exposed port , we can access private network
+
+
+
+
+
