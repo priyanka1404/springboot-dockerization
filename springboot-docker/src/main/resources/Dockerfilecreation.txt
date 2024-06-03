@@ -73,6 +73,8 @@ commands:
 2)docker images
 //already existed in local machine
 //priyankanomula/springboot-docker   0.1.RELEASE   c327abf4de44   3 hours ago   423MB
+
+
 // try to pull new img from docker hub eg:mysql
 -> go to docker hub search for mysql and find the latest tag
 3)docker pull mysql:oraclelinux9  //(tag name)
@@ -92,7 +94,7 @@ output:
 
  2)docker logs -f localhost // localhost is container name,we can see logs of mysql db
  -> to check whether mysql is running in docker container or not
- ->we need to login to mysql db in docker container
+ ->we need to login(access) to mysql db in docker container
 
  ctrl+c
 

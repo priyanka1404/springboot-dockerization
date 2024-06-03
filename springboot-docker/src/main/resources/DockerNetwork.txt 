@@ -1,0 +1,66 @@
+-> one container communicate with other container in docker network
+->deploying spring boot in seperate container and mysql db in seperate container
+(deploy them in same docker network to communicate with each other)
+
+Springboot app---->Docker file----(docker build)--->Docker image------(docker run)------>docker img in docker container
+
+(above app in seperate container)
+
+
+Dockerhub ----(docker pull)----->mysql docker img--------------->mysql docker img in docker container
+
+(above mysql db in seperate container)
+
+1)first we need to pull docker img(mysql) from docker hub and run the container
+2)commands
+  a)docker pull mysql:latest
+  b)docker images  // lists downloaded images in local system
+  c)docker ps      // currently running containers
+3)create docker network and provide name to deploy two containers
+  a)docker network create springboot-mysql-net
+  b)docker network ls  // to check whether it is created or not it will lists all
+  ********** output format *********** :
+   NETWORK ID     NAME                   DRIVER    SCOPE
+   a1bf9dc53f7b   bridge                 bridge    local
+   adba6e818300   host                   host      local
+   180e032ae5b9   none                   null      local
+   bfa4acc4e0ac   springboot-mysql-net   bridge    local
+   *******************************
+   -> Driver  type is bridge,in this two containers can communicate each other
+   ->scope is local
+4)we need to run docker img in docker container
+  a)docker run --name mysqldb --network springboot-mysql-net  -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=employeedb -d mysql
+
+   # docker run // to run the img in container
+   # --name mysqldb  //providing the name of the container
+   #--network springboot-mysql-net //providing name of the network
+   #-e // for environment variable
+   #-d // to run the container in background,d for detached
+   #mysql //which is an image name
+
+   b) docker ps //to check whether container is running in background or not
+   c) docker logs -f mysqldb // to check logs of mysqldb
+   d)we need to login(access) to mysql db in docker container
+   e)docker ps//provides docker id eg:1b154e6ff72e
+   f) docker exec -it 1b15 bash // it will give bash in docker container
+   g)mysql -u  root -p  // enter given password:root
+   h)show databases:
+   ***********output **********
+   mysql> show databases;
+   +--------------------+
+   | Database           |
+   +--------------------+
+   | employeedb         |
+   | information_schema |
+   | mysql              |
+   | performance_schema |
+   | sys                |
+   +--------------------+
+   5 rows in set (0.07 sec)
+
+   ******************************
+
+
+
+
+
