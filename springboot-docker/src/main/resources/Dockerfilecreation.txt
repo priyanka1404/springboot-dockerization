@@ -44,7 +44,7 @@ output in terminal:3375cc6feadb0738f695a71bf85dd229b91832d48e5886a2acfc30a537015
 
 5) docker logs -f 3375 //to see docker logs,-f to tail the logs
 
-6)docker ps
+6)docker ps // to check whether container is running or not
 7)  docker stop 3375 //to stop docker container
 
 *****************
