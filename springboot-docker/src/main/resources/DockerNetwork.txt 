@@ -17,7 +17,7 @@ Dockerhub ----(docker pull)----->mysql docker img--------------->mysql docker im
   b)docker images  // lists downloaded images in local system
   c)docker ps      // currently running containers
 3)create docker network and provide name to deploy two containers
-  a)docker network create springboot-mysql-net
+  a)docker network create springboot-db-ntwork
   b)docker network ls  // to check whether it is created or not it will lists all
   ********** output format *********** :
    NETWORK ID     NAME                   DRIVER    SCOPE
@@ -59,6 +59,92 @@ Dockerhub ----(docker pull)----->mysql docker img--------------->mysql docker im
    5 rows in set (0.07 sec)
 
    ******************************
+
+
+
+
+   strep 2:
+   - use springboot-restful-webservices
+   -build a  jar file
+   ->create Dockerfile in root folder
+   -> provide the instructions in Dockerfile to build docker image
+   -> before building the docker image from docker file,we need to configure springboot application
+   it should connect with mysql db in a docker container
+   ->how to use profiles to configure spring boot application to deploy in docker environment
+
+   ##How to use profile in springboot application
+   ->to build dockerfile  to build docker image
+   ->we need to configure  as per docker environment
+   -> we need to create one more profile(application.properties ) in springboot application and we need to  activate it
+   -> copy application.properties and paste it in resource folder again and change the name to
+   application-docker.properties as per the environment
+   ->existed config is localhost related now change according to docker environment and provide the container name(mysqldb)
+
+   -> Docker ps // to check the containers
+   *******output************
+ CONTAINER ID   IMAGE          COMMAND                  CREATED        STATUS        PORTS                               NAMES
+ 1b154e6ff72e   mysql          "docker-entrypoint.s…"   4 hours ago    Up 4 hours    3306/tcp, 33060/tcp                 mysqldb
+*********************************************
+
+#change the below  local config to docker config:
+spring.datasource.url:jdbc:mysql://localhost:3306/user_management
+
+#as per docker config:
+spring.datasource.url:jdbc:mysql://mysqldb:3306/employeedb
+change password to root
+
+# to activate the profile:
+->Go to application.properties file
+spring.profiles.active=docker
+-> the maven  build the project
+
+
+
+
+**********************************
+   ## How to build the image
+   Commands:
+   ->#open terminal go to  docker file location and execute docker build commands
+
+1)open the docker file location in terminal
+2) cd springboot-restful-webservices(application)
+3)docker build -t springboot-restful-webservices . // to build docker image,-t for tag,. represents current working directory
+4)docker images // lists all  available images in machines with all info like(tag-version),size,creation time
+5)docker build -t springboot-restful-webservices:0.1.RELEASE . // to change tag info
+6)docker images // to check the images
+
+
+  ************************************
+## # how to run the docker img in docker container
+   1)docker images
+   2) docker ps // to check running containers
+   3)docker run --network springboot-db-ntwork  --name springboot-sql-container -p 8003:8080 -d springboot-restful-webservices
+
+    -p //to map container port with   host port
+     ******output*******
+     95c06376a3d41dac6d75942544e1c2dbc5b3aabbff86cd2ca06dc377a2eea174
+
+
+
+
+***********************************************
+
+4) docker logs -f springboot-restful-webservices // to tail logs'
+
+or
+
+   //4) docker logs -f 95c0 //to see docker logs,-f to tail the logs
+
+   6)docker ps // to check whether container is running or not
+   7)  docker stop 3375 //to stop docker container
+
+   *****************
+
+
+   ####crud operations#########
+   post:http://localhost:8080/api/users
+
+
 
 
 

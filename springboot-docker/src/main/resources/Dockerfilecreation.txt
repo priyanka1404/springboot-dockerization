@@ -16,13 +16,12 @@ ENTRYPOINT ["java", "-jar", "springboot-docker-demo.jar"]
 # we have to use this docker file to build docker img
 #open terminal go to  docker file location and execute docker build commands
 
-
-1)open the docker file location in terminal
-2)cd springboot-docker(application)
-3) docker build -t springboot-docker . // to build docker image,-t for tag
-4)docker images // lists all  available images in machines with all info like(tag-version),size,creation time
-5)docker build -t springboot-docker:0.1.RELEASE . // to change tag info
-6)docker images // to check the images
+ 1)open the docker file location in terminal
+     2)cd springboot-docker(application)
+     3) docker build -t springboot-docker . // to build docker image,-t for tag , . represents current working directory
+     4)docker images // lists all  available images in machines with all info like(tag-version),size,creation time
+     5)docker build -t springboot-docker:0.1.RELEASE . // to change tag info
+     6)docker images // to check the images
 
 ************************************
 
@@ -86,6 +85,8 @@ commands:
 1)docker run -p 3307:3306 --name localhost -e MYSQL_ROOT_PASSWORD=TCS1235@# -e MYSQL_DATABASE=employee_db -e MYSQL_USER=Reddy -e MYSQL_PASSWORD=Reddy -d mysql:latest
 
 // running the above img in detached mode
+
+
 ->docker run -p 3307:3306(default container port for mysql)
 
 output:
@@ -100,6 +101,7 @@ output:
 
 
   3)docker exec -it localhost bash
+
   ->it will jump to bash terminal
   4)mysql -u root -p
   enter password:TCS1235@#
