@@ -142,7 +142,7 @@ or
 
 
    ####crud operations#########
-   post:http://localhost:8080/api/users
+   post:http://localhost:8003/api/users
 
 
 
